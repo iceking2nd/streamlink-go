@@ -6,6 +6,7 @@ package cmd
 import (
 	"fmt"
 	"github.com/iceking2nd/streamlink-go/streamlibs/DouYu"
+	"github.com/iceking2nd/streamlink-go/streamlibs/HuYa"
 	"github.com/spf13/cobra"
 	"log"
 	"strings"
@@ -36,6 +37,16 @@ var linkCmd = &cobra.Command{
 				log.Fatalln(err.Error())
 			}
 			link, err := dy.GetLink()
+			if err != nil {
+				log.Fatalln(err.Error())
+			}
+			fmt.Println(link)
+		case "huya":
+			hy, err := HuYa.NewHuyaLink(args[0], gProxyURL)
+			if err != nil {
+				log.Fatalln(err.Error())
+			}
+			link, err := hy.GetLink()
 			if err != nil {
 				log.Fatalln(err.Error())
 			}
