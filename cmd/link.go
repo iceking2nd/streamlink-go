@@ -7,6 +7,7 @@ import (
 	"fmt"
 	"github.com/iceking2nd/streamlink-go/streamlibs/DouYu"
 	"github.com/iceking2nd/streamlink-go/streamlibs/HuYa"
+	"github.com/iceking2nd/streamlink-go/streamlibs/Twitch"
 	"github.com/spf13/cobra"
 	"log"
 	"strings"
@@ -47,6 +48,16 @@ var linkCmd = &cobra.Command{
 				log.Fatalln(err.Error())
 			}
 			link, err := hy.GetLink()
+			if err != nil {
+				log.Fatalln(err.Error())
+			}
+			fmt.Println(link)
+		case "twitch":
+			tw, err := Twitch.NewTwitchLink(args[0], gProxyURL)
+			if err != nil {
+				log.Fatalln(err.Error())
+			}
+			link, err := tw.GetLink()
 			if err != nil {
 				log.Fatalln(err.Error())
 			}
