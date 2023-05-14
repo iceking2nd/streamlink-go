@@ -29,5 +29,5 @@ func (l *Link) GetLink() (string, error) {
 	if err != nil {
 		return "", err
 	}
-	return string(buf.String()), nil
+	return buf.String(), nil
 }

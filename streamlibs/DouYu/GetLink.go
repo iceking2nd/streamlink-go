@@ -3,6 +3,7 @@ package DouYu
 import (
 	"bytes"
 	"encoding/json"
+	"net/url"
 )
 
 func (l *Link) GetLink() (string, error) {
@@ -10,8 +11,13 @@ func (l *Link) GetLink() (string, error) {
 	if err != nil {
 		return "", err
 	}
+	u, err := url.Parse(data.Get("data.url").String())
+	if err != nil {
+		return "", err
+	}
+	u.Scheme = "https"
 	link := map[string]string{
-		"m3u8": data.Get("data.url").String(),
+		"m3u8": u.String(),
 	}
 	buf := new(bytes.Buffer)
 	enc := json.NewEncoder(buf)
@@ -21,5 +27,5 @@ func (l *Link) GetLink() (string, error) {
 	if err != nil {
 		return "", err
 	}
-	return string(buf.String()), nil
+	return buf.String(), nil
 }
